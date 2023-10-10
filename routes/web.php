@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\RecipeController;
+use App\Models\Ingredient;
+use App\Models\Recipe;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +19,15 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+Route::get('/recipe/all', function () {
+    $rec = Recipe::all();
+    return $rec;
+});
+
+Route::get('ingerdient/all', function () {
+    $ing =  Ingredient::all();
+    return $ing;
+});
+

@@ -8,6 +8,7 @@ use Illuminate\Validation\Rule;
 
 class RecipeIngredientController extends Controller
 {
+    
     public function add(Request $request){
         $incomingFeilds = $request -> validate([
             'recipe_id' => ['required', Rule::exists('recipes','id')],
@@ -21,4 +22,5 @@ class RecipeIngredientController extends Controller
         return $request;
         
     }
+
 }
