@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Recipe;
+use App\Models\RecipeIngredient;
 use Illuminate\Http\Request;
 use Psy\Command\WhereamiCommand;
 
@@ -29,6 +30,10 @@ class RecipeController extends Controller
 
     public function detail(Request $request)
     {
-        $info = Recipe::where('name',$request);
+        $info = Recipe::where('id',$request['id']) -> get();
+        $details = RecipeIngredient::where('recipe_id',$request['id']) -> get();
+        return $info . $details ;
     }
+
+    
 }

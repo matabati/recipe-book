@@ -31,3 +31,5 @@ Route::get('ingerdient/all', function () {
     return $ing;
 });
 
+//rest full apis
+//full crud
