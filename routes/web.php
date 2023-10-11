@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\IngredientController;
 use App\Http\Controllers\RecipeController;
+use App\Http\Middleware\VerifyCsrfToken;
 use App\Models\Ingredient;
 use App\Models\Recipe;
 use Illuminate\Support\Facades\Route;
@@ -20,16 +22,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
-Route::get('/recipe/all', function () {
-    $rec = Recipe::all();
-    return $rec;
+Route::get('/token', function () {
+    return csrf_token(); 
 });
 
-Route::get('ingerdient/all', function () {
-    $ing =  Ingredient::all();
-    return $ing;
-});
-
-//rest full apis
-//full crud
+Route::resource('recipe', RecipeController::class);
+Route::resource('ingredient', IngredientController::class);
