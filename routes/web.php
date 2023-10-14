@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\IngredientController;
 use App\Http\Controllers\RecipeController;
+use App\Http\Controllers\RecipeIngredientController;
 use App\Http\Middleware\VerifyCsrfToken;
 use App\Models\Ingredient;
 use App\Models\Recipe;
@@ -22,9 +23,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/token', function () {
-    return csrf_token(); 
-});
-
 Route::resource('recipe', RecipeController::class);
 Route::resource('ingredient', IngredientController::class);
+Route::resource('recipeIngredient', RecipeIngredientController::class);

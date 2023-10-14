@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Ingredient;
 use App\Services\IngredientService;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
@@ -13,7 +14,10 @@ class IngredientController extends Controller
      */
     public function index()
     {
-        //
+        $ingredientService = new IngredientService();
+        $indexIngredient =  $ingredientService -> index();
+        return new JsonResponse($indexIngredient, 201);
+        
     }
 
     /**
@@ -45,7 +49,9 @@ class IngredientController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $IngredientService = new IngredientService();
+        $showIngredient =  $IngredientService -> show($id);
+        return new JsonResponse($showIngredient, 201);
     }
 
     /**
@@ -61,7 +67,14 @@ class IngredientController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $incomingFeilds = $request->validate([
+            'name' => 'required',
+
+        ]);
+        $ingredientService = new IngredientService();
+        $ingredientService -> update($incomingFeilds, $id);
+
+        return new JsonResponse(['message' => 'Recipe updated successfully', 'id' => $id], 201);
     }
 
     /**
@@ -69,6 +82,9 @@ class IngredientController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $ingredientService = new IngredientService();
+        $ingredientService -> delete($id);
+
+        return new JsonResponse(['message' => 'Recipe deleted successfully', 'id' => $id], 201);
     }
 }

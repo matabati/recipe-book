@@ -13,7 +13,10 @@ class RecipeController extends Controller
      */
     public function index()
     {
-        return 'hi!';
+        //return 'index';
+        $recipeService = new RecipeService();
+        $indexRecipe =  $recipeService -> index();
+        return new JsonResponse($indexRecipe, 201);
     }
 
     /**
@@ -24,24 +27,12 @@ class RecipeController extends Controller
             
     }
 
-    /*
-    // i made it by my own self
-    public function detail(Request $request)
-    {
-        $info = Recipe::where('id',$request['id']) -> get();
-        $details = RecipeIngredient::where('recipe_id',$request['id']) -> get();
-        return $info . $details ;
-    }
-    */
-
-
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-        @csrf_token();
-
+        //return 'store';
         $incomingFields = $request->validate([
             'name' => 'required',
             'total_time' => ['required', 'date_format:H:i'],
@@ -59,14 +50,15 @@ class RecipeController extends Controller
 
     /**
      * Display the specified resource.
-     */
-    /*
+    */
     public function show(string $id)
     {
-        $info = Recipe::where('name',$request['name'])->get();
-        return $info;
+        //return 'show';
+        $recipeService = new RecipeService();
+        $showRecipe =  $recipeService -> show($id);
+        return new JsonResponse($showRecipe, 201);
     }
-    */
+    
     /**
      * Show the form for editing the specified resource.
      */
@@ -80,7 +72,18 @@ class RecipeController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        //return 'update';
+        $incomingFields = $request->validate([
+            'name' => 'required',
+            'total_time' => ['required', 'date_format:H:i'],
+            'image' => ['required', 'url'],
+            'instruction' => 'required'
+
+        ]);
+        $recipeService = new RecipeService();
+        $recipeService -> update($incomingFields, $id);
+
+        return new JsonResponse(['message' => 'Recipe updated successfully', 'id' => $id], 201);
     }
 
     /**
@@ -88,6 +91,10 @@ class RecipeController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        //return 'destroy';
+        $recipeService = new RecipeService();
+        $recipeService -> delete($id);
+
+        return new JsonResponse(['message' => 'Recipe deleted successfully', 'id' => $id], 201);
     }
 }
