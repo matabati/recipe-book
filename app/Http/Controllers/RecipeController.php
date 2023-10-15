@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\OdataQueryParser;
 use App\Services\RecipeService;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
@@ -22,11 +23,12 @@ class RecipeController extends Controller
     /**
      * Show the form for creating a new resource.
      */
+    /*
     public function create()
     {
             
     }
-
+    */
     /**
      * Store a newly created resource in storage.
      */
@@ -62,17 +64,17 @@ class RecipeController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
+    /*
     public function edit(string $id)
     {
         //
     }
-
+    */
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
     {
-        //return 'update';
         $incomingFields = $request->validate([
             'name' => 'required',
             'total_time' => ['required', 'date_format:H:i'],
@@ -80,6 +82,7 @@ class RecipeController extends Controller
             'instruction' => 'required'
 
         ]);
+
         $recipeService = new RecipeService();
         $recipeService -> update($incomingFields, $id);
 

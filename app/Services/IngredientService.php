@@ -16,6 +16,11 @@ class IngredientService {
         return Ingredient::create($incomingFeilds);
     }
 
+    public function show($id)
+    {
+        return Ingredient::find($id);
+    }
+
     public function update($incomingFeilds, $id)
     {
         $ingre = Ingredient::find($id);

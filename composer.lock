@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "27cc8840d9ddc63587f8e0d8755ac7a3",
+    "content-hash": "47455be923249ecec7db53ece9d9c0f9",
     "packages": [
         {
             "name": "brick/math",
@@ -3104,6 +3104,61 @@
                 }
             ],
             "time": "2023-04-15T23:01:58+00:00"
+        },
+        {
+            "name": "saintsystems/odata-client",
+            "version": "0.7.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/saintsystems/odata-client-php.git",
+                "reference": "77a80d982b5bc243fb9b7cd9e04d10f4e5f69cae"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/saintsystems/odata-client-php/zipball/77a80d982b5bc243fb9b7cd9e04d10f4e5f69cae",
+                "reference": "77a80d982b5bc243fb9b7cd9e04d10f4e5f69cae",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "^7.0",
+                "illuminate/support": "^6.0 || ^7.0 || ^8.0 || ^9.0 || ^10.0",
+                "nesbot/carbon": "^2.0",
+                "php": "^7.3 || ^8.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^9.0"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/Core/helpers.php"
+                ],
+                "psr-4": {
+                    "SaintSystems\\OData\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Saint Systems",
+                    "email": "contact@saintsystems.com"
+                }
+            ],
+            "description": "Saint Systems OData Client for PHP",
+            "homepage": "https://github.com/saintsystems/odata-client-php",
+            "keywords": [
+                "odata",
+                "php",
+                "rest"
+            ],
+            "support": {
+                "issues": "https://github.com/saintsystems/odata-client-php/issues",
+                "source": "https://github.com/saintsystems/odata-client-php/tree/0.7.2"
+            },
+            "time": "2023-09-29T14:30:17+00:00"
         },
         {
             "name": "symfony/console",
