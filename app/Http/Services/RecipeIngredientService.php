@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services;
+namespace App\http\Services;
 
 use App\Models\RecipeIngredient;
 

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\RecipeIngredient;
 use Illuminate\Validation\Rule;
-use App\Services\RecipeIngredientService;
+use App\http\Services\RecipeIngredientService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 

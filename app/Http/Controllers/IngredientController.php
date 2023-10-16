@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Ingredient;
-use App\Services\IngredientService;
+use App\http\Services\IngredientService;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 

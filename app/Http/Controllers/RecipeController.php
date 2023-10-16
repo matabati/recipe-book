@@ -3,21 +3,32 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\OdataQueryParser;
-use App\Services\RecipeService;
+use App\Exceptions\RequestRulesException;
+
+use App\Http\Services\RecipeService;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 
 class RecipeController extends Controller
 {
+    use RulesTrait;
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         //return 'index';
-        $recipeService = new RecipeService();
-        $indexRecipe =  $recipeService -> index();
-        return new JsonResponse($indexRecipe, 201);
+        //$data = self::checkRules($request, RecipeController::class, 'index', 4001);
+        
+        //$user_id = $request -> header('x-user-id');
+
+        $query = OdataQueryParser::parse($request->fullUrl());
+        $items = RecipeService::indexSearch($query);
+        return $this->respondArrayResult ($items['value'], $items['count']);
+        // $recipeService = new RecipeService();
+        // $indexRecipe =  $recipeService -> index();
+        
+        // return new JsonResponse($indexRecipe, 201);
     }
 
     /**
@@ -36,10 +47,7 @@ class RecipeController extends Controller
     {
         //return 'store';
         $incomingFields = $request->validate([
-            'name' => 'required',
-            'total_time' => ['required', 'date_format:H:i'],
-            'image' => ['required', 'url'],
-            'instruction' => 'required'
+            
 
         ]);
         
