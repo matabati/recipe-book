@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\OdataQueryParser;
 use App\Models\RecipeIngredient;
 use Illuminate\Validation\Rule;
 use App\http\Services\RecipeIngredientService;
@@ -13,11 +14,11 @@ class RecipeIngredientController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $recipeIngredientService = new RecipeIngredientService();
-        $indexRecipeIngredient =  $recipeIngredientService -> index();
-        return new JsonResponse($indexRecipeIngredient, 201);
+        $parsedQuery = OdataQueryParser::parse($request->fullUrl());
+        $result = RecipeIngredientService::index($parsedQuery);
+        return response() -> json($result);
     }
 
     /**

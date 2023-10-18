@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Ingredient;
+use App\Helpers\OdataQueryParser;
 use App\http\Services\IngredientService;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
@@ -12,11 +13,11 @@ class IngredientController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $ingredientService = new IngredientService();
-        $indexIngredient =  $ingredientService -> index();
-        return new JsonResponse($indexIngredient, 201);
+        $parsedQuery = OdataQueryParser::parse($request->fullUrl());
+        $result = IngredientService::index($parsedQuery);
+        return response() -> json($result);
         
     }
 

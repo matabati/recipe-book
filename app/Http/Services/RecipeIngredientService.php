@@ -3,12 +3,17 @@
 namespace App\http\Services;
 
 use App\Models\RecipeIngredient;
+use App\Models\OdataQueryBuilder;
+
 
 class RecipeIngredientService {
 
-    public function index()
+    public static function index($parsedQuery)
     {
-        return RecipeIngredient::all();
+        $query = RecipeIngredient::query();
+        $result = OdataQueryBuilder::handle($parsedQuery, $query);
+        $result = $result -> get();
+        return $result;
     }
 
     public function create($incomingFeilds)

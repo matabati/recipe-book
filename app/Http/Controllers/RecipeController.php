@@ -17,14 +17,15 @@ class RecipeController extends Controller
      */
     public function index(Request $request)
     {
-        //return 'index';
-        //$data = self::checkRules($request, RecipeController::class, 'index', 4001);
+
+        $parsedQuery = OdataQueryParser::parse($request->fullUrl());
+        $result = RecipeService::index($parsedQuery);
+        return response() -> json($result);
         
         //$user_id = $request -> header('x-user-id');
-
-        $query = OdataQueryParser::parse($request->fullUrl());
-        $items = RecipeService::indexSearch($query);
-        return $this->respondArrayResult ($items['value'], $items['count']);
+        //return $parsedQuery;
+        //$data = self::checkRules($request, RecipeController::class, 'index', 4001);
+        //return $this->respondArrayResult ($items['value'], $items['count']);
         // $recipeService = new RecipeService();
         // $indexRecipe =  $recipeService -> index();
         
