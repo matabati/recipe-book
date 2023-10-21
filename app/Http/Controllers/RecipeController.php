@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\OdataQueryParser;
-use App\Exceptions\RequestRulesException;
-
 use App\Http\Services\RecipeService;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
@@ -46,12 +44,8 @@ class RecipeController extends Controller
      */
     public function store(Request $request)
     {
-        //return 'store';
-        $incomingFields = $request->validate([
-            
+        $incomingFields = self::checkRules($request, RecipeController::class, 'store', 4000);
 
-        ]);
-        
         $recipeService = new RecipeService();
         $createdRecipe =  $recipeService -> create($incomingFields);
 
@@ -84,13 +78,7 @@ class RecipeController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $incomingFields = $request->validate([
-            'name' => 'required',
-            'total_time' => ['required', 'date_format:H:i'],
-            'image' => ['required', 'url'],
-            'instruction' => 'required'
-
-        ]);
+        $incomingFields = self::checkRules($request, RecipeController::class, 'update', 4000);
 
         $recipeService = new RecipeService();
         $recipeService -> update($incomingFields, $id);

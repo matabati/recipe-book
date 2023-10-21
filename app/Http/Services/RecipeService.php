@@ -24,7 +24,7 @@ class RecipeService {
 
     public function show($id)
     {
-        return Recipe::find($id);
+        return Recipe::findOrFail($id);
     }
 
     public function update($incomingFeilds, $id)
@@ -39,7 +39,7 @@ class RecipeService {
 
     public function delete($id)
     {
-        $recipe = Recipe::find($id);
+        $recipe = Recipe::findOrFail($id);
         $recipe->delete();
     }
 }

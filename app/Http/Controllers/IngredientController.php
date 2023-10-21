@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Ingredient;
 use App\Helpers\OdataQueryParser;
-use App\http\Services\IngredientService;
+use App\Http\Services\IngredientService;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 
 class IngredientController extends Controller
 {
+    use RulesTrait;
     /**
      * Display a listing of the resource.
      */
@@ -34,10 +34,8 @@ class IngredientController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        $incomingFeilds = $request -> validate([
-            'name' => 'required'
-        ]);
+    {   
+        $incomingFeilds = self::checkRules($request, IngredientController::class, 'store', 4000);
         $ingredientService = new IngredientService();
         $createdIngredient =  $ingredientService -> create($incomingFeilds);
 
@@ -70,10 +68,7 @@ class IngredientController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $incomingFeilds = $request->validate([
-            'name' => 'required',
-
-        ]);
+        $incomingFeilds = self::checkRules($request, IngredientController::class, 'update', 4000);
         $ingredientService = new IngredientService();
         $ingredientService -> update($incomingFeilds, $id);
 

@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Exceptions\RequestRulesException;
+use App\Models\Ingredient;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
+
 
 trait RulesTrait
 {
@@ -35,6 +38,43 @@ trait RulesTrait
                 ],
                 'destroy' => [
 
+                ]
+            ],
+            RecipeIngredientController::class => [
+                'index' => [
+                    'recipe_id' => ['required', Rule::exists('recipes','id')],
+                    'ingredient_id'  => ['required', Rule::exists('ingredients','id')],
+                    'unit' => 'required',
+                    'amount' => 'required',
+                    'necessity' => 'required'
+                ],
+                'store' => [
+                    'recipe_id' => ['required', Rule::exists('recipes','id')],
+                    'ingredient_id'  => ['required', Rule::exists('ingredients','id')],
+                    'unit' => 'required',
+                    'amount' => 'required',
+                    'necessity' => 'required'
+                ],
+                'show' => [
+                    
+                ],
+                'update' => [
+                    'recipe_id' => ['required', Rule::exists('recipes','id')],
+                    'ingredient_id'  => ['required', Rule::exists('ingredients','id')],
+                    'unit' => 'required',
+                    'amount' => 'required',
+                    'necessity' => 'required'
+                ],
+                'destroy' => [
+
+                ]
+            ],
+            Ingredient::class => [
+                'store' => [
+                    'name' => 'required',
+                ],
+                'update' => [
+                    'name' => 'required',
                 ]
             ]
         ];

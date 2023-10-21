@@ -3,14 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\OdataQueryParser;
-use App\Models\RecipeIngredient;
 use Illuminate\Validation\Rule;
-use App\http\Services\RecipeIngredientService;
+use App\Http\Services\RecipeIngredientService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class RecipeIngredientController extends Controller
 {
+    use RulesTrait;
     /**
      * Display a listing of the resource.
      */
@@ -35,13 +35,8 @@ class RecipeIngredientController extends Controller
      */
     public function store(Request $request)
     {
-        $incomingFeilds = $request -> validate([
-            'recipe_id' => ['required', Rule::exists('recipes','id')],
-            'ingredient_id'  => ['required', Rule::exists('ingredients','id')],
-            'unit' => 'required',
-            'amount' => 'required',
-            'necessity' => 'required'
-        ]);
+        $incomingFeilds = self::checkRules($request, RecipeIngredientController::class, 'store', 4000);
+
 
         $recipeIngredientService = new RecipeIngredientService();
         $createdRecipeIngredient =  $recipeIngredientService -> create($incomingFeilds);
@@ -74,17 +69,10 @@ class RecipeIngredientController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $incomingFeilds = $request -> validate([
-            'recipe_id' => ['required', Rule::exists('recipes','id')],
-            'ingredient_id'  => ['required', Rule::exists('ingredients','id')],
-            'unit' => 'required',
-            'amount' => 'required',
-            'necessity' => 'required'
-        ]);
+        $incomingFeilds = self::checkRules($request, RecipeIngredientController::class, 'update', 4000);
 
         $recipeIngredientService = new RecipeIngredientService();
         $recipeIngredientService -> update($incomingFeilds, $id);
-
         return new JsonResponse(['message' => 'Recipe-Ingredient updated successfully', 'id' => $id], 201);
     
     }
