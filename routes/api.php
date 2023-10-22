@@ -20,3 +20,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::resource('recipe', RecipeController::class);
+Route::resource('ingredient', IngredientController::class);
+Route::resource('recipeIngredient', RecipeIngredientController::class);

@@ -15,18 +15,17 @@ class RecipeController extends Controller
      */
     public function index(Request $request)
     {
-
         $parsedQuery = OdataQueryParser::parse($request->fullUrl());
         $result = RecipeService::index($parsedQuery);
-        return response() -> json($result);
-        
+        return response()->json($result);
+
         //$user_id = $request -> header('x-user-id');
         //return $parsedQuery;
         //$data = self::checkRules($request, RecipeController::class, 'index', 4001);
         //return $this->respondArrayResult ($items['value'], $items['count']);
         // $recipeService = new RecipeService();
         // $indexRecipe =  $recipeService -> index();
-        
+
         // return new JsonResponse($indexRecipe, 201);
     }
 
@@ -47,23 +46,23 @@ class RecipeController extends Controller
         $incomingFields = self::checkRules($request, RecipeController::class, 'store', 4000);
 
         $recipeService = new RecipeService();
-        $createdRecipe =  $recipeService -> create($incomingFields);
+        $createdRecipe =  $recipeService->store($incomingFields);
 
-        $createdRecipeId  = $createdRecipe -> id ;
+        $createdRecipeId  = $createdRecipe->id;
         return new JsonResponse(['message' => 'Recipe created successfully', 'id' => $createdRecipeId], 201);
     }
 
     /**
      * Display the specified resource.
-    */
+     */
     public function show(string $id)
     {
         //return 'show';
         $recipeService = new RecipeService();
-        $showRecipe =  $recipeService -> show($id);
+        $showRecipe =  $recipeService->show($id);
         return new JsonResponse($showRecipe, 201);
     }
-    
+
     /**
      * Show the form for editing the specified resource.
      */
@@ -81,7 +80,7 @@ class RecipeController extends Controller
         $incomingFields = self::checkRules($request, RecipeController::class, 'update', 4000);
 
         $recipeService = new RecipeService();
-        $recipeService -> update($incomingFields, $id);
+        $recipeService->update($incomingFields, $id);
 
         return new JsonResponse(['message' => 'Recipe updated successfully', 'id' => $id], 201);
     }
@@ -93,7 +92,7 @@ class RecipeController extends Controller
     {
         //return 'destroy';
         $recipeService = new RecipeService();
-        $recipeService -> delete($id);
+        $recipeService->delete($id);
 
         return new JsonResponse(['message' => 'Recipe deleted successfully', 'id' => $id], 201);
     }

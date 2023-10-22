@@ -9,13 +9,13 @@ use function explode;
 
 class OdataQueryParser
 {
-    const COUNT_KEY = "count";
-    const FILTER_KEY = "filter";
+    const COUNT_KEY = "count"; //done
+    const FILTER_KEY = "filter"; //done
     const FORMAT_KEY = "format";
-    const ORDER_BY_KEY = "orderby";
-    const SELECT_KEY = "select";
-    const SKIP_KEY = "skip";
-    const TOP_KEY = "top";
+    const ORDER_BY_KEY = "orderby"; //done
+    const SELECT_KEY = "select"; //done
+    const SKIP_KEY = "skip"; //done
+    const TOP_KEY = "top"; //done
     const SEARCH_KEY = "search";
     const EXPAND_KEY = "expand";
     const APPLY_KEY = "apply";
@@ -317,7 +317,6 @@ class OdataQueryParser
                     "local_key" => $keys[1]
                 ];
             }
-
         }, explode(",", static::$queryStrings[static::$expandKey]));
     }
 
@@ -344,7 +343,6 @@ class OdataQueryParser
                     $items[2] = 'contains';
                     $items[3] = str_replace(['"', "'"], '', $item[1]);
                     self::if_right_is_empty($items[3], $items[1]);
-
                 } elseif ($items[2] == 'mod') {
                     preg_match("/(\d+) eq (\d+)/", $items[3], $mod);
                     if (count($mod) == 3) {
@@ -370,7 +368,6 @@ class OdataQueryParser
                     "right" => $right
                 ];
             }
-
         }, explode("and", static::$queryStrings[static::$filterKey]));
     }
 
@@ -522,5 +519,4 @@ class OdataQueryParser
     {
         return self::$failed;
     }
-
 }

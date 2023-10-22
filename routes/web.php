@@ -23,6 +23,3 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('recipe', RecipeController::class);
-Route::resource('ingredient', IngredientController::class);
-Route::resource('recipeIngredient', RecipeIngredientController::class);

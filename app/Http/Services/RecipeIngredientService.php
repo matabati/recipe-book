@@ -6,17 +6,17 @@ use App\Models\RecipeIngredient;
 use App\Models\OdataQueryBuilder;
 
 
-class RecipeIngredientService {
+class RecipeIngredientService
+{
 
     public static function index($parsedQuery)
     {
         $query = RecipeIngredient::query();
         $result = OdataQueryBuilder::handle($parsedQuery, $query);
-        $result = $result -> get();
         return $result;
     }
 
-    public function create($incomingFeilds)
+    public function store($incomingFeilds)
     {
         return RecipeIngredient::create($incomingFeilds);
     }
@@ -30,7 +30,7 @@ class RecipeIngredientService {
     {
         $recipeIngredient = RecipeIngredient::findOrFail($id);
         $recipeIngredient->recipe_id = $incomingFeilds['recipe_id'];
-        $recipeIngredient ->ingredient_id = $incomingFeilds['ingredient_id'];
+        $recipeIngredient->ingredient_id = $incomingFeilds['ingredient_id'];
         $recipeIngredient->unit = $incomingFeilds['unit'];
         $recipeIngredient->amount = $incomingFeilds['amount'];
         $recipeIngredient->necessity = $incomingFeilds['necessity'];

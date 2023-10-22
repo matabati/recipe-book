@@ -6,37 +6,36 @@ use App\Models\Ingredient;
 use App\Models\OdataQueryBuilder;
 
 
-class IngredientService {
+class IngredientService
+{
 
     public static function index($parsedQuery)
     {
         $query = Ingredient::query();
         $result = OdataQueryBuilder::handle($parsedQuery, $query);
-        $result = $result -> get();
         return $result;
-        
     }
 
-    public function create($incomingFeilds)
+    public function store($incomingFeilds)
     {
         return Ingredient::create($incomingFeilds);
     }
 
     public function show($id)
     {
-        return Ingredient::find($id);
+        return Ingredient::findOrFail($id);
     }
-
+    
     public function update($incomingFeilds, $id)
     {
-        $ingre = Ingredient::find($id);
+        $ingre = Ingredient::findOrFail($id);
         $ingre->name = $incomingFeilds['name'];
         $ingre->update();
     }
 
     public function delete($id)
     {
-        $ingre = Ingredient::find($id);
+        $ingre = Ingredient::findOrFail($id);
         $ingre->delete();
     }
 }

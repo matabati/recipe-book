@@ -10,6 +10,7 @@ use Illuminate\Http\JsonResponse;
 class IngredientController extends Controller
 {
     use RulesTrait;
+
     /**
      * Display a listing of the resource.
      */
@@ -17,8 +18,7 @@ class IngredientController extends Controller
     {
         $parsedQuery = OdataQueryParser::parse($request->fullUrl());
         $result = IngredientService::index($parsedQuery);
-        return response() -> json($result);
-        
+        return response()->json($result);
     }
 
     /**
@@ -34,14 +34,13 @@ class IngredientController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {   
+    {
         $incomingFeilds = self::checkRules($request, IngredientController::class, 'store', 4000);
         $ingredientService = new IngredientService();
-        $createdIngredient =  $ingredientService -> create($incomingFeilds);
+        $createdIngredient =  $ingredientService->store($incomingFeilds);
 
-        $createdIngredientId  = $createdIngredient-> id ;
+        $createdIngredientId  = $createdIngredient->id;
         return new JsonResponse(['message' => 'Recipe created successfully', 'id' => $createdIngredientId], 201);
-        
     }
 
     /**
@@ -50,7 +49,7 @@ class IngredientController extends Controller
     public function show(string $id)
     {
         $IngredientService = new IngredientService();
-        $showIngredient =  $IngredientService -> show($id);
+        $showIngredient =  $IngredientService->show($id);
         return new JsonResponse($showIngredient, 201);
     }
 
@@ -69,8 +68,9 @@ class IngredientController extends Controller
     public function update(Request $request, string $id)
     {
         $incomingFeilds = self::checkRules($request, IngredientController::class, 'update', 4000);
+
         $ingredientService = new IngredientService();
-        $ingredientService -> update($incomingFeilds, $id);
+        $ingredientService->update($incomingFeilds, $id);
 
         return new JsonResponse(['message' => 'Recipe updated successfully', 'id' => $id], 201);
     }
@@ -81,7 +81,7 @@ class IngredientController extends Controller
     public function destroy(string $id)
     {
         $ingredientService = new IngredientService();
-        $ingredientService -> delete($id);
+        $ingredientService->delete($id);
 
         return new JsonResponse(['message' => 'Recipe deleted successfully', 'id' => $id], 201);
     }
