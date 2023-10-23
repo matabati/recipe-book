@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\OdataQueryParser;
+use App\Http\Requests\IndexRecipeIngredientRequest;
+use App\Http\Requests\StoreRecipeIngredientRequest;
+use App\Http\Requests\UpdateRecipeIngredientRequest;
 use App\Http\Services\RecipeIngredientService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -10,79 +13,44 @@ use Illuminate\Http\Request;
 class RecipeIngredientController extends Controller
 {
     use RulesTrait;
-    /**
-     * Display a listing of the resource.
-     */
-    public function index(Request $request)
+
+    public $recipeIngredientService;
+
+    public function __construct(RecipeIngredientService $recipeIngredientService)
+    {
+        $this->recipeIngredientService = $recipeIngredientService;
+    }
+
+    public function index(IndexRecipeIngredientRequest $request)
     {
         $parsedQuery = OdataQueryParser::parse($request->fullUrl());
-        $result = RecipeIngredientService::index($parsedQuery);
-        return response()->json($result);
+        $result = $this->recipeIngredientService->index($parsedQuery);
+        return $this->respondArrayResult($result);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    /*
-    public function create()
-    {
-        //
-    }
-    */
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function store(StoreRecipeIngredientRequest $request)
     {
         $incomingFeilds = self::checkRules($request, RecipeIngredientController::class, 'store', 4000);
-
-
-        $recipeIngredientService = new RecipeIngredientService();
-        $createdRecipeIngredient =  $recipeIngredientService->store($incomingFeilds);
-
-        $createdRecipeIngredientId  = $createdRecipeIngredient->id;
-        return new JsonResponse(['message' => 'Recipe-Ingredient created successfully', 'id' => $createdRecipeIngredientId], 201);
+        $item = $this->recipeIngredientService->store($incomingFeilds);
+        return $this->respondItemResult($item);
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
-        $recipeIngredientService = new RecipeIngredientService();
-        $showRecipeIngredient =  $recipeIngredientService->show($id);
-        return new JsonResponse($showRecipeIngredient, 201);
+        $item = $this->recipeIngredientService->show($id);
+        return $this->respondItemResult($item);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    /*
-    public function edit(string $id)
-    {
-        //
-    }
-    */
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function update(UpdateRecipeIngredientRequest $request, string $id)
     {
         $incomingFeilds = self::checkRules($request, RecipeIngredientController::class, 'update', 4000);
-
-        $recipeIngredientService = new RecipeIngredientService();
-        $recipeIngredientService->update($incomingFeilds, $id);
-        return new JsonResponse(['message' => 'Recipe-Ingredient updated successfully', 'id' => $id], 201);
+        $item = $this->recipeIngredientService->update($incomingFeilds, $id);
+        return $this->respondItemResult($item);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
-        $recipeIngredientService = new RecipeIngredientService();
-        $recipeIngredientService->delete($id);
-
-        return new JsonResponse(['message' => 'Recipe-Ingredient deleted successfully', 'id' => $id], 201);
+        $item = $this->recipeIngredientService->delete($id);
+        return $this->respondItemResult($item);
     }
 }

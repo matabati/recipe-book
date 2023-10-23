@@ -71,10 +71,10 @@ trait RulesTrait
             ],
             Ingredient::class => [
                 'store' => [
-                    'name' => 'required',
+                    'name' => 'required'
                 ],
                 'update' => [
-                    'name' => 'required',
+                    'name' => 'required'
                 ]
             ]
         ];

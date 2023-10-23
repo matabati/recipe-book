@@ -8,6 +8,12 @@ use App\Models\OdataQueryBuilder;
 
 class IngredientService
 {
+    public $ingredient;
+
+    public function __construct(Ingredient $ingredient)
+    {
+        $this->ingredient = $ingredient;
+    }
 
     public static function index($parsedQuery)
     {
@@ -18,24 +24,26 @@ class IngredientService
 
     public function store($incomingFeilds)
     {
-        return Ingredient::create($incomingFeilds);
+        return $this->ingredient->create($incomingFeilds);
     }
 
     public function show($id)
     {
-        return Ingredient::findOrFail($id);
+        return $this->ingredient->findOrFail($id);
     }
     
     public function update($incomingFeilds, $id)
     {
-        $ingre = Ingredient::findOrFail($id);
+        $ingre = $this->ingredient->findOrFail($id);
         $ingre->name = $incomingFeilds['name'];
         $ingre->update();
+        return $this->ingredient->findOrFail($id);
     }
 
     public function delete($id)
     {
-        $ingre = Ingredient::findOrFail($id);
+        $ingre = $this->ingredient->findOrFail($id);
         $ingre->delete();
+        return $this->ingredient->findOrFail($id);
     }
 }
