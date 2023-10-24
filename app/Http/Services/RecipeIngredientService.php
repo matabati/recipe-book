@@ -17,7 +17,9 @@ class RecipeIngredientService
 
     public static function index($parsedQuery)
     {
-        $query = RecipeIngredient::query();
+        $model = 'RecipeIngredient';
+        $factory = new QueryFactory();
+        $query = $factory->create($model)->createQuery();
         $result = OdataQueryBuilder::handle($parsedQuery, $query);
         return $result;
     }

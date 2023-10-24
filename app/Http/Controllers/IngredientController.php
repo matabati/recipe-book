@@ -7,6 +7,7 @@ use App\Http\Requests\IndexIngredientRequest;
 use App\Http\Requests\StoreIngredientRequest;
 use App\Http\Requests\UpdateIngredientRequest;
 use App\Http\Services\IngredientService;
+use App\Http\Controllers\ApiController;
 
 class IngredientController extends Controller
 {

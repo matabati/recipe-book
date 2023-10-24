@@ -29,6 +29,14 @@ class ApiController extends Controller
             ]);
     }
 
+     /**
+     * @return int
+     */
+    private function getStatusCode()
+    {
+        return $this->statusCode;
+    }
+    
     /**
      * @param $statusCode
      * @return $this

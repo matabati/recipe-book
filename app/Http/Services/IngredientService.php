@@ -4,6 +4,7 @@ namespace App\Http\Services;
 
 use App\Models\Ingredient;
 use App\Models\OdataQueryBuilder;
+use App\QueryFactories\QueryFactory;
 
 
 class IngredientService
@@ -17,7 +18,9 @@ class IngredientService
 
     public static function index($parsedQuery)
     {
-        $query = Ingredient::query();
+        $model = 'Ingredient';
+        $factory = new QueryFactory();
+        $query = $factory->create($model)->createQuery();
         $result = OdataQueryBuilder::handle($parsedQuery, $query);
         return $result;
     }
