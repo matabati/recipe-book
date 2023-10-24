@@ -4,6 +4,7 @@ namespace App\Http\Services;
 
 use App\Models\Recipe;
 use App\Models\OdataQueryBuilder;
+use App\QueryFactories\QueryFactory;
 
 class RecipeService
 {
@@ -16,7 +17,9 @@ class RecipeService
     
     public static function index($parsedQuery)
     {
-        $query = Recipe::query();
+        $model = 'Recipe';
+        $factory = new QueryFactory();
+        $query = $factory->create($model)->createQuery();
         $result = OdataQueryBuilder::handle($parsedQuery, $query);
         return $result;
     }

@@ -4,6 +4,7 @@ namespace App\Http\Services;
 
 use App\Models\RecipeIngredient;
 use App\Models\OdataQueryBuilder;
+use App\QueryFactories\QueryFactory;
 
 
 class RecipeIngredientService
